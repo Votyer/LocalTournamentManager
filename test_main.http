@@ -1,0 +1,33 @@
+# Test your FastAPI endpoints
+
+GET http://127.0.0.1:8000/
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/cre
+Accept: application/json
+
+######
+#POST http://localhost:8000/createTournament
+###
+POST http://localhost:8000/createTournament
+Accept: application/json
+
+{
+  "name": "Torneo di prova",
+  "code": "TP001",
+  "tables": [1, 2, 3, 4]
+}
+
+###
+GET http://localhost:8000/tournaments
+
+###
+POST http://localhost:8000/joinTournament?code=TP001
+Accept: application/json
+
+{
+    "name": "Federico",
+    "player_id": 1234
+}
