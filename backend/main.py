@@ -1,10 +1,13 @@
+import logging
 from http.client import HTTPException
 from typing import Dict
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from fastapi.requests import Request
+from starlette.responses import JSONResponse
 
-from models.models import Info, MatchResult, Tournament, Player
+from backend.models.models import Tournament, Player, MatchResult, Info
 
 APP_NAME = "Tournament Manager"
 VERSION = "0.1.0"
@@ -22,6 +25,10 @@ app.add_middleware(
 tournaments: Dict[str, Tournament] = {}
 
 
+@app.exception_handler(Exception)
+async def exception_handler(request: Request, exc: Exception):
+    logging.exception("Unhandled error: %s", exc)
+    return JSONResponse({"error": str(exc)}, status_code=500)
 @app.get("/")
 async def root():
     return Info(name=APP_NAME, version=VERSION)
@@ -29,7 +36,7 @@ async def root():
 
 @app.post("/createTournament")
 async def create_tournament(tournament: Tournament):
-    if tournament.name in tournaments:
+    if tournament.code in tournaments:
         raise HTTPException("Tournament already exists")
 
     tournaments[tournament.name] = tournament
@@ -38,7 +45,7 @@ async def create_tournament(tournament: Tournament):
 
 @app.get("/tournaments")
 async def get_tournaments():
-    return tournaments
+    return list(tournaments.values())
 
 
 @app.post("/joinTournament")

@@ -1,17 +1,24 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-import PlayerResult from "@/components/PlayerResult.vue";
-import PlayerJoinTournament from "@/components/PlayerJoinTournament.vue";
+import {useRouter} from "vue-router";
+import {usePlayerStore} from "@/stores/playerStore.js";
+
+const playerStore = usePlayerStore()
+const router = useRouter()
+
+if (!playerStore.player_id || !playerStore.name) {
+  //navigate to join tournament
+  router.push('/register-player')
+}
+
 </script>
 
 <template>
   <main>
-    <PlayerJoinTournament/>
-    <PlayerResult/>
+    <div class="col">
+      <RouterView/>
+    </div>
   </main>
 </template>
 
 <style scoped>
-@import "tailwindcss";
 </style>

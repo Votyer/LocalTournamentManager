@@ -1,61 +1,17 @@
 <template>
   <div class="max-w-md mx-auto p-6 shadow-lg rounded-xl mt-10">
-    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Invia Risultato</h2>
-    <form @submit.prevent="submitResult" class="space-y-4">
-      <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Nome Giocatore</label>
-        <input
-            v-model="form.name"
-            type="text"
-            id="name"
-            required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-
-      <div>
-        <label for="table" class="block text-sm font-medium ">Tavolo</label>
-        <input
-            v-model.number="form.table"
-            type="number"
-            id="table"
-            required
-            min="1"
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-
-      <div>
-        <label for="result" class="block text-sm font-medium text-gray-700">Risultato</label>
-        <select
-            v-model="form.result"
-            id="result"
-            required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-        >
-          <option value="" disabled selected>Seleziona un risultato</option>
-          <option value="1">Vittoria</option>
-          <option value="2">Sconfitta</option>
-          <option value="0">Pareggio</option>
-        </select>
-      </div>
-
-      <button
-          type="submit"
-          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow"
-      >
-        Invia Risultato
-      </button>
-    </form>
-
-    <div v-if="submitted" class="mt-4 text-green-600 text-center">
-      ✅ Risultato inviato con successo!
+    <h2 class="text-4xl font-bold mb-4 text-center">Tavolo {{currentTable}}</h2>
+    <div class="grid gap-6">
+      <button class="bg-green-500 hover:bg-green-900 text-white py-2 px-5 rounded-4xl">Vittoria</button>
+      <button class="bg-white hover:bg-gray-500 py-2 px-5 rounded-4xl text-gray-700">Pareggio</button>
+      <button class="bg-red-500 hover:bg-red-900 text-white py-2 px-5 rounded-4xl">Sconfitta</button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import {useRouter} from "vue-router";
 
 const form = ref({
   name: '',
@@ -64,7 +20,10 @@ const form = ref({
 })
 
 const submitted = ref(false)
+const route = useRouter()
 
+const currentTable = route.currentRoute.value.params.table
+console.log(currentTable)
 const submitResult = async () => {
   try {
     await fetch('http://localhost:8000/submitResult', {
