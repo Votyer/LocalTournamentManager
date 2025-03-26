@@ -1,94 +1,69 @@
-🧹 LocalTournamentManager
+# 🧩 LocalTournamentManager
 
-LocalTournamentManager è un'applicazione open-source per la gestione di tornei di carte collezionabili (come Pokémon TCG) in contesti locali (negozi, community, eventi).
+**LocalTournamentManager** is an open-source application for managing trading card game tournaments (such as Pokémon TCG) in local settings (shops, communities, events).
 
-⚠️ Progetto in fase di sviluppo. Struttura modulare e facilmente estendibile.
+> ⚠️ Project under development. Modular structure and easily extendable.
 
-✨ Funzionalità
+---
 
-✅ Creazione e gestione di tornei locali
+## 🧱 Technologies
 
-✅ Inserimento dei risultati da parte dei giocatori
+| Area     | Stack                            |
+| -------- | -------------------------------- |
+| Backend  | Python + FastAPI                 |
+| Frontend | Vue 3 + Vite + Tailwind CSS + TS |
+| Desktop  | Tauri (WebView + Rust)           |
+| Storage  | In-memory (file/DB coming soon)  |
 
-✅ Interfaccia desktop moderna grazie a Tauri
+---
 
-✅ Frontend in Vue 3 + Tailwind CSS + TypeScript
+## 🚀 Quick Start
 
-✅ Comunicazione con backend FastAPI
+### 📦 Backend (FastAPI)
 
-✅ Tabella dinamica per visualizzare tornei attivi
-
-✅ Routing interno con Vue Router
-
-🧱 Tecnologie
-
-Area
-
-Stack
-
-Backend
-
-Python + FastAPI
-
-Frontend
-
-Vue 3 + Vite + Tailwind CSS + TS
-
-Desktop
-
-Tauri (con WebView + Rust)
-
-Storage
-
-In-memory per ora (file/DB in futuro)
-
-🚀 Avvio rapido
-
-📆 Backend (FastAPI)
-
+```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload
+```
 
-Server disponibile su http://localhost:8000
+Server available at `http://localhost:8000`
 
-💻 Frontend (Tauri + Vue)
+---
 
+### 💻 Frontend (Tauri + Vue)
+
+```bash
 cd desktop/local-tournament-manager-app
 npm install
 npm run tauri
+```
 
-Se usi Wayland su Linux (es. Fedora), potresti dover avviare con:
+> If you are using Wayland on Linux (e.g., Fedora), you may need to start with:
+>
+> ```bash
+> GDK_BACKEND=x11 WEBKIT_DISABLE_COMPOSITING_MODE=1 npm run tauri
+> ```
 
-GDK_BACKEND=x11 WEBKIT_DISABLE_COMPOSITING_MODE=1 npm run tauri
+---
 
-💠 Funzionalità recenti
+## 🤝 Contributing
 
-🌐 [x] Endpoint /tournaments in FastAPI che restituisce l'elenco dei tornei in JSON
+1. Fork the repository
+2. Create a branch (`git checkout -b feature/xyz`)
+3. Make your changes
+4. Submit a pull request
 
-📊 [x] Componente PlayerTable.vue con tabella responsive usando Tailwind
+---
 
-📁 [x] Routing Vue: Home, Submit, Admin, Result
+## 📄 License
 
-📲 [x] Navbar AppMenu.vue con router-link attivi
+Distributed under the **MIT** license.
 
-💾 [ ] Persistenza in SQLite (in arrivo)
+---
 
-🤝 Contribuire
+## 👨‍💻 Author
 
-Forka il repository
-
-Crea una branch (git checkout -b feature/xyz)
-
-Fai le modifiche
-
-Invia una pull request
-
-📄 Licenza
-
-Distribuito sotto licenza MIT.
-
-👨‍💻 Autore
-
-FedericoProgetto nato per supportare i tornei Pokémon TCG nei negozi e nelle community locali.
+**Federico**\
+Project created to support Pokémon TCG tournaments in local shops and communities.
 
