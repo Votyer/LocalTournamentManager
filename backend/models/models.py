@@ -18,7 +18,8 @@ class Player(BaseModel):
 
 class Tournament(BaseModel):
     name: str
-    code: str
+    code: str = None
     tables: List[int]
     players: List[Player] = []
+    max_players: int = 30
 

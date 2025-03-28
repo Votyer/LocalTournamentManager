@@ -1,4 +1,5 @@
 import logging
+import random
 from http.client import HTTPException
 from typing import Dict
 
@@ -38,6 +39,11 @@ async def root():
 async def create_tournament(tournament: Tournament):
     if tournament.code in tournaments:
         raise HTTPException("Tournament already exists")
+
+    if tournament.code is None:
+        code = tournament.name[:2]
+        code_numebr = random.randint(1000,9999)
+        tournament.code = code + str(code_numebr)
 
     tournaments[tournament.name] = tournament
     return {"message": "Tournament created", "tournaments": list(tournaments.keys())}
