@@ -1,11 +1,10 @@
 import logging
 import random
-from http.client import HTTPException
 from typing import Dict
 
-from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, HTTPException
 from fastapi.requests import Request
+from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 
 from backend.models.models import Tournament, Player, MatchResult, Info
@@ -37,15 +36,15 @@ async def root():
 
 @app.post("/createTournament")
 async def create_tournament(tournament: Tournament):
+    if tournament.code is None:
+        prefix = tournament.name[:2]
+        code_number = random.randint(1000, 9999)
+        tournament.code = prefix + str(code_number)
+
     if tournament.code in tournaments:
         raise HTTPException("Tournament already exists")
 
-    if tournament.code is None:
-        code = tournament.name[:2]
-        code_numebr = random.randint(1000,9999)
-        tournament.code = code + str(code_numebr)
-
-    tournaments[tournament.name] = tournament
+    tournaments[tournament.code] = tournament
     return {"message": "Tournament created", "tournaments": list(tournaments.keys())}
 
 
@@ -77,6 +76,4 @@ async def submit_result(request: MatchResult):
 
 
 def find_tournament(code: str):
-    for tournament in tournaments.values():
-        if tournament.code == code:
-            return tournament
+    return tournaments.get(code)
