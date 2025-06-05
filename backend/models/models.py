@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class MatchResult(BaseModel):
@@ -18,8 +18,8 @@ class Player(BaseModel):
 
 class Tournament(BaseModel):
     name: str
-    code: str = None
+    code: Optional[str] = None
     tables: List[int]
-    players: List[Player] = []
+    players: List[Player] = Field(default_factory=list)
     max_players: int = 30
 
